@@ -1,0 +1,31 @@
+service: serverless-sandbox
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: wazzahp
+          method: get
+
+  shazbot:
+    handler: handler.shazbot
+    events:
+      - http:
+          path: shazbot/{drunkle}
+          method: get
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: AWS::Cognito::CognitoUserPool
+      Properties:
+        UserPoolName: adam-test-one
+        UserPoolId:
+          Ref: CognitoUserPool
+
+    CognitoIdentityPool:
+      Type: AWS::Cognito::IdentityPool
